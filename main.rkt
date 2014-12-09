@@ -79,4 +79,14 @@
        [style '(vscroll)]
        [alignment '(left center)]))
 
-(send frame show #t)
+(define default-feeds-xml
+  '(feeds (url "google.com") (url)))
+
+(display-xml/content
+ (xexpr->xml default-feeds-xml))
+
+; Reads xml file and parses into xexpr
+(xml->xexpr (document-element
+             (read-xml/document (open-input-file "feeds.xml"))))
+
+;(send frame show #t)

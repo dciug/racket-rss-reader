@@ -82,11 +82,17 @@
 (define default-feeds-xml
   '(feeds (url "google.com") (url)))
 
-(display-xml/content
- (xexpr->xml default-feeds-xml))
+;(display-xml/content
+; (xexpr->xml default-feeds-xml))
 
-; Reads xml file and parses into xexpr
-(xml->xexpr (document-element
-             (read-xml/document (open-input-file "feeds.xml"))))
+(define output
+  (open-output-file"output.xml"
+                         #:exists 'truncate/replace)) 
+
+(write-xml/content
+ (xexpr->xml
+  (xml->xexpr (document-element
+             (read-xml/document (open-input-file "feeds.xml")))))
+ output)
 
 ;(send frame show #t)
